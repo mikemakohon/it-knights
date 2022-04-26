@@ -524,6 +524,10 @@ input[type="email"]::placeholder {
   border-radius: 0 5px 5px 0;
 }
 
+input[type="submit"]:hover {
+  cursor: pointer;
+}
+
 footer {
   background-color: #252b42;
   padding: 80px 100px;
