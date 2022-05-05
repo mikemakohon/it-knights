@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mail</title>
+    <link rel="stylesheet" href="./index.css" />
+    <script src="./data.js"></script>
+    <script src="./index.js" defer></script>
+  </head>
+  <body>
+    <section class="filter-controls">
+      <div class="container">
+        <input type="text" class="searchInput" placeholder="Search" />
+        <select name="searchbar" class="searchbar" id="searchbar">
+          <option value="author">By Author</option>
+          <option value="title">By Title</option>
+          <option value="createdAt">By Date</option>
+        </select>
+        <span class="sort-controls">
+          Date:
+          <button class="sort-asc">↑</button>
+          <button class="sort-desc">↓</button>
+        </span>
+      </div>
+    </section>
+    <section class="list-output">
+      <div class="container">
+        <div class="card-container"></div>
+      </div>
+    </section>
+    <div class="pagination-controls">
+      <button class="prev-page">←</button>
+      <span>Page: <span class="page"></span></span>
+      <button class="next-page">→</button>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,72 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  padding: 0 20px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.list-output {
+  margin-top: 50px;
+}
+
+.mail-card {
+  padding: 10px;
+  border: 1px solid #32b4a9;
+  border-radius: 5px;
+  box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.7);
+}
+
+.mail-card:hover {
+  cursor: pointer;
+}
+
+.card-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+.filter-controls {
+  padding: 20px 0;
+  background-color: #32b4a9;
+}
+
+input,
+select,
+button {
+  padding: 5px 10px;
+  border-radius: 3px;
+  border: 1px solid #fff;
+}
+
+input,
+select {
+  outline-width: 1px;
+  outline-color: #63c884;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+body {
+  height: 100vh;
+  position: relative;
+}
+
+.pagination-controls {
+  position: fixed;
+  bottom: 20px;
+  left: 10px;
+}
