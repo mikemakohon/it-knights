@@ -6,7 +6,7 @@ let searchTypeValue = searchType.value;
 let searchInput = document.querySelector(".searchInput");
 const ascButtonSort = document.querySelector(".sort-asc");
 const descButtonSort = document.querySelector(".sort-desc");
-let filteredData;
+let filteredData = [];
 const paginationPage = document.querySelector(".page");
 
 function getEmailTemplate(email) {
@@ -40,9 +40,9 @@ searchInput.addEventListener("input", (e) => {
   let value = e.target.value;
   if (value && value.trim().length > 0) {
     value = value.trim().toLowerCase();
-    filteredData = data.filter((email) =>
-      email[`${searchTypeValue}`].includes(value)
-    );
+    filteredData = [
+      ...data.filter((email) => email[`${searchTypeValue}`].includes(value)),
+    ];
   } else {
     renderList(data);
   }
@@ -50,28 +50,28 @@ searchInput.addEventListener("input", (e) => {
 });
 
 ascButtonSort.addEventListener("click", () => {
-  let inputData;
+  let inputData = [];
   if (filteredData.length === 0) {
-    inputData = data;
+    inputData = [...data];
   } else {
-    inputData = filteredData;
+    inputData = [...filteredData];
   }
-  let sortedData = inputData.sort(
-    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-  );
+  let sortedData = [
+    ...inputData.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)),
+  ];
   renderList(sortedData);
 });
 
 descButtonSort.addEventListener("click", () => {
-  let inputData;
+  let inputData = [];
   if (filteredData.length === 0) {
-    inputData = data;
+    inputData = [...data];
   } else {
-    inputData = filteredData;
+    inputData = [...filteredData];
   }
-  let sortedData = inputData.sort(
-    (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
-  );
+  let sortedData = [
+    ...inputData.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)),
+  ];
   renderList(sortedData);
 });
 
