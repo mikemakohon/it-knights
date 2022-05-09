@@ -6,8 +6,9 @@ let searchTypeValue = searchType.value;
 let searchInput = document.querySelector(".searchInput");
 const ascButtonSort = document.querySelector(".sort-asc");
 const descButtonSort = document.querySelector(".sort-desc");
-let filteredData = [];
 const paginationPage = document.querySelector(".page");
+
+const list = new List(data);
 
 function getEmailTemplate(email) {
   return `<div class="mail-card">
@@ -21,11 +22,10 @@ function getEmailTemplate(email) {
 
 function renderList(data) {
   const dataHTML = data.map((email) => getEmailTemplate(email)).join("");
-  // cardContainer.insertAdjacentHTML("beforeEnd", dataHTML);
   cardContainer.innerHTML = dataHTML;
 }
 
-// renderList(data);
+// renderList(list.data);
 
 cardContainer.addEventListener("click", (e) => {
   const element = e.target.closest(".mail-card");
@@ -40,69 +40,52 @@ searchInput.addEventListener("input", (e) => {
   let value = e.target.value;
   if (value && value.trim().length > 0) {
     value = value.trim().toLowerCase();
-    filteredData = [
-      ...data.filter((email) => email[`${searchTypeValue}`].includes(value)),
+    list.currentData = [
+      ...list.data.filter((email) =>
+        email[`${searchTypeValue}`].includes(value)
+      ),
     ];
   } else {
-    renderList(data);
+    buildPage(1);
   }
-  renderList(filteredData);
+  renderList(list.currentData);
 });
 
 ascButtonSort.addEventListener("click", () => {
-  let inputData = [];
-  if (filteredData.length === 0) {
-    inputData = [...data];
-  } else {
-    inputData = [...filteredData];
-  }
-  let sortedData = [
-    ...inputData.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)),
+  list.sortedData = [
+    ...list.currentData.sort(
+      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+    ),
   ];
-  renderList(sortedData);
+  renderList(list.sortedData);
 });
-
 descButtonSort.addEventListener("click", () => {
-  let inputData = [];
-  if (filteredData.length === 0) {
-    inputData = [...data];
-  } else {
-    inputData = [...filteredData];
-  }
-  let sortedData = [
-    ...inputData.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt)),
+  list.sortedData = [
+    ...list.currentData.sort(
+      (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+    ),
   ];
-  renderList(sortedData);
+  renderList(list.sortedData);
 });
-
-// Pagination
-const numberOfItems = data.length;
-const numberPerPage = 7;
-let currentPage = 1;
-const numberOfPages = Math.ceil(numberOfItems / numberPerPage);
 
 function buildPage(currentPage) {
-  const trimStart = (currentPage - 1) * numberPerPage;
-  const trimEnd = trimStart + numberPerPage;
-  renderList(data.slice(trimStart, trimEnd));
+  const trimStart = (currentPage - 1) * list.numberPerPage;
+  const trimEnd = trimStart + list.numberPerPage;
+  list.currentData = [...list.data.slice(trimStart, trimEnd)];
+  renderList(list.currentData);
 }
 
-buildPage(currentPage);
+paginationPage.innerHTML = list.currentPage;
+buildPage(list.currentPage);
 
 document.querySelector(".prev-page").addEventListener("click", () => {
-  if (currentPage > 1) {
-    currentPage--;
-  }
-  paginationPage.innerHTML = currentPage;
-  buildPage(currentPage);
+  list.currentPage > 1 ? list.currentPage-- : list.currentPage;
+  paginationPage.innerHTML = list.currentPage;
+  buildPage(list.currentPage);
 });
 
 document.querySelector(".next-page").addEventListener("click", () => {
-  if (currentPage < numberOfPages) {
-    currentPage++;
-  }
-  paginationPage.innerHTML = currentPage;
-  buildPage(currentPage);
+  list.currentPage < list.numberOfPages ? list.currentPage++ : list.currentPage;
+  paginationPage.innerHTML = list.currentPage;
+  buildPage(list.currentPage);
 });
-
-paginationPage.innerHTML = currentPage;
