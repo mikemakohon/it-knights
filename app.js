@@ -1,7 +1,3 @@
-const loadData = () => JSON.parse(localStorage.getItem("items")) || [];
-const saveData = (updItems) =>
-  localStorage.setItem("items", JSON.stringify(updItems));
-
 const renderListItem = (listItem) => {
   return `<li class="item" data-id="${listItem.id}"
           <label><span class="${listItem.isChecked ? "checked" : ""}">${
@@ -21,8 +17,8 @@ const renderList = (listItems) => {
 };
 
 const app = () => {
-  const data = loadData();
-  const list = new Todolist(data);
+  const list = new Todolist([]);
+  const uri = "http://localhost:3000/items/";
   const input = document.querySelector(".item-input");
   const listContainer = document.querySelector(".list-output");
   const submitButton = document.querySelector(".item-submit");
@@ -32,15 +28,30 @@ const app = () => {
     listContainer.innerHTML = renderList(list.items);
   };
 
+  fetch(uri)
+    .then((res) => res.json())
+    .then((data) => (list.items = [...data]))
+    .then(() => render())
+    .catch((err) => console.log(err.message));
+
   const addListItem = () => {
     const inputValue = input.value;
     if (inputValue === "") {
       alert(`You'd better fill in the input first`);
       return;
     }
-    list.addItem(inputValue);
+    const item = {
+      id: list.getId(),
+      title: inputValue,
+      isChecked: false,
+    };
+    list.addItem(item.title);
     render();
-    saveData(list.items);
+    fetch(uri, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(item),
+    }).catch((err) => console.log(err));
     input.value = "";
   };
 
@@ -48,26 +59,27 @@ const app = () => {
 
   const removeListItem = (itemId) => {
     list.removeItem(itemId);
-    saveData(list.items);
+    fetch(uri + itemId, { method: "DELETE" });
     render();
   };
 
   listContainer.addEventListener("click", (e) => {
     const elementId = parseInt(e.target.closest(".item").dataset.id);
     if (e.target.classList.contains("item-toggle")) {
-      list.toggleItem(elementId);
-      saveData(list.items);
+      fetch(uri + elementId, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ isChecked: list.toggleItem(elementId) }),
+      });
       render();
     }
     if (e.target.classList.contains("item-remove")) {
       removeListItem(elementId);
-      saveData(list.items);
     }
   });
 
   const removeAllItems = () => {
-    saveData(list.setItems([]));
-    localStorage.clear();
+    list.items.forEach((item) => removeListItem(item.id));
     render();
   };
 

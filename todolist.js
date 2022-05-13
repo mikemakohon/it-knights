@@ -27,6 +27,7 @@ class Todolist {
       return;
     }
     element.isChecked = !element.isChecked;
+    return element.isChecked;
   };
   setItems = (newItems) => {
     this.items = newItems;
