@@ -4,9 +4,13 @@ export class DataManager {
     this.data = [];
   }
   loadData = async () => {
-    const response = await fetch(this.uri);
-    this.data = await response.json();
-    return this.data;
+    try {
+      const response = await fetch(this.uri);
+      this.data = await response.json();
+      return this.data;
+    } catch (err) {
+      console.log(err);
+    }
   };
   addItemData = (item) => {
     fetch(this.uri, {
