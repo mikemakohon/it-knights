@@ -3,13 +3,13 @@ export class DataManager {
     this.uri = "http://localhost:3000/items/";
     this.data = [];
   }
-  loadData = async () => {
+  loadData = async (container) => {
     try {
       const response = await fetch(this.uri);
       this.data = await response.json();
       return this.data;
     } catch (err) {
-      console.log(err);
+      container.innerText = `${err.message}`;
     }
   };
   addItemData = (item) => {
@@ -17,7 +17,7 @@ export class DataManager {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(item),
-    }).catch((err) => console.log(err));
+    }).catch((err) => console.log(err.message));
   };
   removeItemData = (itemId) => {
     fetch(this.uri + itemId, { method: "DELETE" });

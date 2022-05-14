@@ -6,12 +6,13 @@ const app = () => {
   const submitButton = document.querySelector(".item-submit");
   const removeAllButton = document.querySelector(".item-remove-all");
   const listContainer = document.querySelector(".list-output");
+  const messageContainer = document.querySelector(".message");
 
   const dataManager = new DataManager();
   const renderer = new RenderUI();
 
   const loadInitialData = async () => {
-    const loadedData = await dataManager.loadData();
+    const loadedData = await dataManager.loadData(messageContainer);
     renderer.renderList(listContainer, loadedData);
   };
 
@@ -49,7 +50,8 @@ const app = () => {
   });
 
   const removeAllItems = () => {
-    dataManager.data.forEach((item) => removeListItem(item.id));
+    // dataManager.data.forEach((item) => removeListItem(item.id));
+    dataManager.removeAllData();
   };
 
   removeAllButton.addEventListener("click", removeAllItems);

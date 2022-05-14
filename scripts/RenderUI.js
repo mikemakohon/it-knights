@@ -12,7 +12,7 @@ export class RenderUI {
             `;
   };
   renderList = (container, listItems) => {
-    const listItemsHtml = listItems.map(this.renderListItem);
+    const listItemsHtml = listItems.map((item) => this.renderListItem(item));
     container.innerHTML = listItemsHtml.join("");
   };
 }
