@@ -14,11 +14,8 @@ const app = () => {
     const loadedData = await dataManager.loadData();
     renderer.renderList(listContainer, loadedData);
   };
-  try {
-    loadInitialData();
-  } catch (err) {
-    console.log(err.message);
-  }
+
+  loadInitialData();
 
   const addListItem = () => {
     const inputValue = input.value;
