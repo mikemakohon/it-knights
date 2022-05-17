@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Minigame</title>
+    <link rel="stylesheet" href="./index.css" />
+    <script type="module" src="./scripts/index.js" defer></script>
+  </head>
+  <body>
+    <section class="app">
+      <div class="battlefield">
+        <div class="hero-1">
+          <img src="./img/paladin.jpg" alt="paladin-img" />
+          <p class="paladin-health health"></p>
+          <p class="paladin-energy"></p>
+          <div class="hero1-controls">
+            <label
+              >Attack <input type="radio" name="hero1-controls" value="attack"
+            /></label>
+            <label
+              >Defend <input type="radio" name="hero1-controls" value="defend"
+            /></label>
+            <label
+              >Wait <input type="radio" name="hero1-controls" value="wait"
+            /></label>
+          </div>
+        </div>
+        <h4 class="result"></h4>
+        <div class="hero-2">
+          <img src="./img/magician.jpg" alt="magician-img" />
+          <p class="magician-health health"></p>
+          <p class="magician-mana"></p>
+          <div class="hero2-controls">
+            <label
+              >Attack <input type="radio" name="hero2-controls" value="attack"
+            /></label>
+            <label
+              >Defend <input type="radio" name="hero2-controls" value="defend"
+            /></label>
+            <label
+              >Wait <input type="radio" name="hero2-controls" value="wait"
+            /></label>
+          </div>
+        </div>
+      </div>
+      <button class="trigger">Go</button>
+    </section>
+  </body>
+</html>
