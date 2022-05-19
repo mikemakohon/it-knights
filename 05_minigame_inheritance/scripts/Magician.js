@@ -4,7 +4,7 @@ export class Magician extends Hero {
   attack = () => {
     console.log("Magician attacks");
     if (this.mana >= this.attackCost) {
-      this.mana = this.mana - 20;
+      this.mana = this.mana - this.attackCost;
       const attackPower = Math.floor(Math.random() * 21);
       return attackPower;
     } else {
@@ -15,7 +15,7 @@ export class Magician extends Hero {
   defend = () => {
     console.log("Magician defends");
     if (this.mana >= this.defenseCost) {
-      this.mana = this.mana - 15;
+      this.mana = this.mana - this.defenseCost;
       const defensePower = Math.floor(Math.random() * 31);
       return defensePower;
     } else {

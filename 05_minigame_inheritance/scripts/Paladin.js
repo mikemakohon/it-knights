@@ -4,7 +4,7 @@ export class Paladin extends Hero {
   attack = () => {
     console.log("Paladin attacks");
     if (this.energy >= this.attackCost) {
-      this.energy = this.energy - 20;
+      this.energy = this.energy - this.attackCost;
       const attackPower = Math.floor(Math.random() * 21);
       return attackPower;
     } else {
@@ -15,7 +15,7 @@ export class Paladin extends Hero {
   defend = () => {
     console.log("Paladin defends");
     if (this.energy >= this.defenseCost) {
-      this.energy = this.energy - 15;
+      this.energy = this.energy - this.defenseCost;
       const defensePower = Math.floor(Math.random() * 31);
       return defensePower;
     } else {

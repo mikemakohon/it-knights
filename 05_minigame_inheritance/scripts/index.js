@@ -1,5 +1,6 @@
 "use strict";
 
+import { Hero } from "./Hero.js";
 import { Paladin } from "./Paladin.js";
 import { Magician } from "./Magician.js";
 
@@ -25,14 +26,17 @@ const checkWinner = (player1, player2) => {
   if (player1 <= 0 && player2 > 0) {
     resultOutput.innerText = "player2 wins";
     triggerButton.classList.add("d-none");
+    return;
   }
   if (player2 <= 0 && player1 > 0) {
     resultOutput.innerText = "player1 wins";
     triggerButton.classList.add("d-none");
+    return;
   }
   if (player1 <= 0 && player2 <= 0) {
     resultOutput.innerText = "Draw";
     triggerButton.classList.add("d-none");
+    return;
   }
 };
 
@@ -56,3 +60,8 @@ const roundHandler = () => {
 };
 
 triggerButton.addEventListener("click", roundHandler);
+
+// ? Bind task
+// const heroAttackButton = document.querySelector(".hero-attack");
+// const hero = new Hero();
+// heroAttackButton.addEventListener("click", hero.attack.bind(hero));
